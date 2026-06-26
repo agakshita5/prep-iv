@@ -4,7 +4,6 @@ import { auth, clerkClient } from "@clerk/nextjs/server";
 import { redirect } from "next/navigation";
 import { getRole, type Role } from "@/lib/auth";
 
-// Server Action: runs on the server when a role form is submitted.
 async function selectRole(formData: FormData) {
   "use server";
 
