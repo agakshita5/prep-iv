@@ -1,6 +1,5 @@
 import { requireRole } from "@/lib/auth";
 
-// Server component: gates everything under (recruiter).
 export default async function RecruiterLayout({
   children,
 }: {

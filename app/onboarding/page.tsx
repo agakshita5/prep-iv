@@ -1,4 +1,4 @@
-// role selection — server component + server action
+// role selection
 
 import { auth, clerkClient } from "@clerk/nextjs/server";
 import { redirect } from "next/navigation";
@@ -14,7 +14,6 @@ async function selectRole(formData: FormData) {
   const { userId } = await auth();
   if (!userId) redirect("/");
 
-  // Persist the choice on the Clerk user (survives reloads, readable in the JWT).
   const client = await clerkClient();
   await client.users.updateUser(userId, {
     publicMetadata: { role: role as Role },
@@ -24,7 +23,6 @@ async function selectRole(formData: FormData) {
 }
 
 export default async function Onboarding() {
-  // Already onboarded? Skip straight to the right dashboard.
   const role = await getRole();
   if (role) redirect(role === "candidate" ? "/candidate" : "/recruiter");
 

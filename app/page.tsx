@@ -12,7 +12,7 @@ export default function Home() {
       <main className="mx-auto flex w-full max-w-5xl flex-1 flex-col justify-center px-6 py-20">
         <div className="max-w-2xl">
           <p className="text-sm font-medium uppercase tracking-[0.18em] text-zinc-500">
-            AI interview preparation
+            Prepare interview or hire talent
           </p>
           <h1 className="mt-5 text-5xl font-semibold tracking-tight text-balance sm:text-6xl">
             Practice sharper interviews and screen candidates with confidence.
