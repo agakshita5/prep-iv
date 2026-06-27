@@ -1,3 +1,4 @@
+// used in Interview table
 export type InterviewStatus = "pending" | "in_progress" | "completed";
 
 export type Interview = {
@@ -8,3 +9,13 @@ export type Interview = {
   status: InterviewStatus;
   created_at: string;
 };
+
+// used in transcript_turns table
+export type Speaker = 'ai' | 'user';
+export type TranscriptTurn = {
+  id: string;
+  interview_id: string;
+  speaker: Speaker;
+  text: string;
+  created_at: string;
+}
