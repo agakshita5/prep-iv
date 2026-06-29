@@ -1,5 +1,5 @@
 import { supabaseAdmin } from "../supabase/server";
-import type { Interview, TranscriptTurn } from "./types";
+import type { Interview, Speaker, TranscriptTurn } from "./types";
 
 export async function getInterviewById(id:string): Promise<Interview | null>{
     const {data, error} = await supabaseAdmin
@@ -25,24 +25,16 @@ export async function getTranscript(interviewId:string): Promise<TranscriptTurn[
     return data ?? [];
 }
 
-export async function addTurn(interviewId:string, speaker:string, text: string): Promise<void> {
-    const {data, error} = await supabaseAdmin
+export async function addTurn(interviewId:string, speaker:Speaker, text: string): Promise<void> {
+    const {error} = await supabaseAdmin
     .from('transcript_turns')
-    .upsert(
-        {
-            interview_id: interviewId,
-            speaker: speaker,
-            text: text,
-        }
+    .insert(
+        {interview_id: interviewId, speaker, text}
     )
-    .select()
-    .single();
 
-    if(error) throw new Error(error.message);
-
-    return data;
+    if (error) throw new Error(error.message);
 }
 
-export default function isParticipant(interview: Interview, userId: string){
+export function isParticipant(interview: Interview, userId: string){
     return interview.candidate_id === userId || interview.recruiter_id === userId;
 }
