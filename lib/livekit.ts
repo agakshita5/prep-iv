@@ -1,14 +1,11 @@
-'use server'
-
+import 'server-only';
 import { AccessToken } from "livekit-server-sdk";
 
 export async function createInterviewToken(roomId:string, identity:string, name?: string){
     const at = new AccessToken(
-        process.env.LIVEKIT_API_KEY,
-        process.env.LIVEKIT_API_SECRET,
-        {
-            identity: identity,
-        }
+        process.env.LIVEKIT_API_KEY!,
+        process.env.LIVEKIT_API_SECRET!,
+        {identity, name, ttl: "2h"}
     )
     at.addGrant({ 
         roomJoin: true, 
@@ -17,6 +14,5 @@ export async function createInterviewToken(roomId:string, identity:string, name?
         canSubscribe: true
      }); 
 
-    const token = await at.toJwt();
-    return token;
+    return at.toJwt();
 }
