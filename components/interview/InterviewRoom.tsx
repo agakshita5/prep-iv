@@ -22,26 +22,34 @@ export default function InterviewRoom({token,serverUrl,interviewId,roleTitle,ret
   const router = useRouter();
 
   return (
-    <LiveKitRoom
-      token={token}
-      serverUrl={serverUrl}
-      connect
-      video
-      audio
-      data-lk-theme="default"
-      className="relative flex h-[100dvh] flex-col overflow-hidden bg-zinc-950 text-zinc-100"
-      onDisconnected={() => router.push(returnTo)}
-    >
-      {/* plays the audio coming from remote participants (agent's audio) */}
-      <RoomAudioRenderer />
+    <div className="fixed inset-0 flex flex-col overflow-hidden bg-zinc-950 text-zinc-100">
+      <LiveKitRoom
+        token={token}
+        serverUrl={serverUrl}
+        connect
+        video
+        audio
+        data-lk-theme="default"
+        onDisconnected={() => router.push(returnTo)}
+        style={{ display: "contents" }}
+      >
+        <RoomAudioRenderer />
+        <TopBar interviewId={interviewId} roleTitle={roleTitle} />
 
-      <TopBar interviewId={interviewId} roleTitle={roleTitle} />
-      <Stage />
-      <ControlBar transcriptOpen={showTranscript} onToggleTranscript={() => setShowTranscript((s) => !s)} />
-      <TranscriptPanel
-        open={showTranscript}
-        onClose={() => setShowTranscript(false)}
-      />
-    </LiveKitRoom>
+       <div className="flex min-h-0 flex-1">
+          <div className="relative flex min-h-0 flex-1 flex-col">
+            <Stage />
+            <ControlBar
+              transcriptOpen={showTranscript}
+              onToggleTranscript={() => setShowTranscript((s) => !s)}
+            />
+          </div>
+
+          {showTranscript && (
+            <TranscriptPanel onClose={() => setShowTranscript(false)} />
+          )}
+        </div>
+      </LiveKitRoom>
+    </div>
   );
 }
