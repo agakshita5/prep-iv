@@ -1,19 +1,40 @@
 "use client";
 
-import { useEffect, useRef } from "react";
-import {
-  useTranscriptions,
-  useLocalParticipant,
-} from "@livekit/components-react";
+import { useEffect, useMemo, useRef } from "react";
+import { useTranscriptions, useLocalParticipant } from "@livekit/components-react";
+
+type Group = { isUser: boolean; text: string };
+
+function groupByTurn(
+  items: { text: string; participantInfo: { identity: string } }[],
+  myIdentity: string,
+): Group[] {
+  const groups: Group[] = [];
+  for (const it of items) {
+    const isUser = it.participantInfo.identity === myIdentity;
+    const last = groups[groups.length - 1];
+    if (last && last.isUser === isUser) {
+      last.text = `${last.text} ${it.text}`.trim();
+    } else {
+      groups.push({ isUser, text: it.text });
+    }
+  }
+  return groups;
+}
 
 export default function TranscriptPanel({ onClose }: { onClose: () => void }) {
   const transcriptions = useTranscriptions();
   const { localParticipant } = useLocalParticipant();
   const bottomRef = useRef<HTMLDivElement>(null);
 
+  const groups = useMemo(
+    () => groupByTurn(transcriptions, localParticipant.identity),
+    [transcriptions, localParticipant.identity],
+  );
+
   useEffect(() => {
     bottomRef.current?.scrollIntoView({ behavior: "smooth" });
-  }, [transcriptions.length]);
+  }, [groups.length]);
 
   return (
     <aside className="flex h-full w-[340px] shrink-0 flex-col border-l border-white/10 bg-zinc-900/80 backdrop-blur">
@@ -29,34 +50,30 @@ export default function TranscriptPanel({ onClose }: { onClose: () => void }) {
       </header>
 
       <div className="flex-1 space-y-3 overflow-y-auto p-4">
-        {transcriptions.length === 0 ? (
+        {groups.length === 0 ? (
           <p className="text-sm text-zinc-500">
             Transcript will appear here as you speak.
           </p>
         ) : (
-          transcriptions.map((t, i) => {
-            const isYou =
-              t.participantInfo.identity === localParticipant.identity;
-            return (
+          groups.map((g, i) => (
+            <div
+              key={i}
+              className={`flex ${g.isUser ? "justify-end" : "justify-start"}`}
+            >
               <div
-                key={i}
-                className={`flex ${isYou ? "justify-end" : "justify-start"}`}
+                className={`max-w-[85%] rounded-2xl px-3 py-2 text-sm ${
+                  g.isUser
+                    ? "bg-emerald-500/15 text-emerald-100"
+                    : "bg-white/5 text-zinc-200"
+                }`}
               >
-                <div
-                  className={`max-w-[85%] rounded-2xl px-3 py-2 text-sm ${
-                    isYou
-                      ? "bg-emerald-500/15 text-emerald-100"
-                      : "bg-white/5 text-zinc-200"
-                  }`}
-                >
-                  <div className="mb-0.5 text-[10px] uppercase tracking-wide text-zinc-400">
-                    {isYou ? "You" : "AI"}
-                  </div>
-                  {t.text}
+                <div className="mb-0.5 text-[10px] uppercase tracking-wide text-zinc-400">
+                  {g.isUser ? "You" : "AI"}
                 </div>
+                {g.text}
               </div>
-            );
-          })
+            </div>
+          ))
         )}
         <div ref={bottomRef} />
       </div>
