@@ -5,6 +5,7 @@ const isProtectedRoute = createRouteMatcher([
   "/candidate(.*)",
   "/recruiter(.*)",
   "/interview(.*)",
+  "/invite(.*)",
 ]);
 
 export const proxy = clerkMiddleware(async (auth, request) => {
