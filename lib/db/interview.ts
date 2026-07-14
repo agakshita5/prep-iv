@@ -38,3 +38,14 @@ export async function addTurn(interviewId:string, speaker:Speaker, text: string)
 export function isParticipant(interview: Interview, userId: string){
     return interview.candidate_id === userId || interview.recruiter_id === userId;
 }
+
+export async function createInterview(recruiterId: string, roleTitle: string, jdText: string): Promise<Interview> {
+    const { data, error } = await supabaseAdmin
+    .from('interviews')
+    .insert({recruiter_id: recruiterId, candidate_id: null,  role_title: roleTitle, jd_text: jdText, status: 'pending'})
+    .select()
+    .single();
+
+    if (error) throw new Error(error.message);
+    return data;
+}
