@@ -3,7 +3,7 @@
 import { useState } from "react";
 
 // copies the shareable invite link for a pending interview to the clipboard.
-export default function CopyLinkButton(interviewId: {interviewId: string}) {
+export default function CopyLinkButton({ interviewId }: { interviewId: string }) {
   const [copied, setCopied] = useState(false);
 
   async function copy() {
