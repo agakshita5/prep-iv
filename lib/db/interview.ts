@@ -49,3 +49,21 @@ export async function createInterview(recruiterId: string, roleTitle: string, jd
     if (error) throw new Error(error.message);
     return data;
 }
+
+// Race-safe claim: only succeeds if the interview is still unclaimed
+// (candidate_id IS NULL). Returns false if someone else already claimed it.
+export async function claimInterview(
+    interviewId: string,
+    candidateId: string,
+    resumeText: string,
+): Promise<boolean> {
+    const { data, error } = await supabaseAdmin
+    .from('interviews')
+    .update({ candidate_id: candidateId, resume_text: resumeText, status: 'in_progress' })
+    .eq('id', interviewId)
+    .is('candidate_id', null)   // the guard: first claimer wins
+    .select();
+
+    if (error) throw new Error(error.message);
+    return (data?.length ?? 0) > 0;
+}
