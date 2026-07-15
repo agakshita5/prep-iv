@@ -38,6 +38,9 @@ Open [http://localhost:3000](http://localhost:3000) in your browser.
 - **[prep-iv-ai](https://github.com/agakshita5/prep-iv-ai)** — Backend service
 - **[ai-interview-agent](https://github.com/agakshita5/ai-interview-agent)** — v1 (original implementation)
 
-#
+## Below is a visual walkthrough of the application interface
 
-Note: UI/UX improvements are in progress.
+- ![Home Page](assets/landing.png)
+- ![Recruiter Dashboard](assets/recruiter_db.png)
+- ![Candidate Dashboard](assets/candidate_db.png)
+- ![Candidate Report](assets/candidate_report.png)
