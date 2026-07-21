@@ -40,7 +40,11 @@ Open [http://localhost:3000](http://localhost:3000) in your browser.
 
 ## Below is a visual walkthrough of the application interface
 
-- ![Home Page](assets/landing.png)
-- ![Recruiter Dashboard](assets/recruiter_db.png)
-- ![Candidate Dashboard](assets/candidate_db.png)
-- ![Candidate Report](assets/candidate_report.png)
+- Home Page
+![Home Page](assets/landing.png)
+- Recruiter Dashboard
+![Recruiter Dashboard](assets/recruiter_db.png)
+- Candidate Dashboard
+![Candidate Dashboard](assets/candidate_db.png)
+- Candidate Report
+![Candidate Report](assets/candidate_report.png)
