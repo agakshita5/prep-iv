@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import { useConnectionState } from "@livekit/components-react";
 import { ConnectionState } from "livekit-client";
 
-// Counts up once per second while the room is connected.
+// counts up once per second while the room is connected.
 function useElapsedSeconds(active: boolean) {
   const [seconds, setSeconds] = useState(0);
   useEffect(() => {
@@ -35,7 +35,7 @@ export default function TopBar({ interviewId, roleTitle }: { interviewId: string
         <div className="flex items-center gap-2 font-mono text-sm tabular-nums text-zinc-200">
         <span
             className={`h-2 w-2 rounded-full ${
-            connected ? "animate-pulse bg-emerald-500" : "bg-zinc-600"
+            connected ? "animate-pulse bg-coral" : "bg-zinc-600"
             }`}
         />
         {mm}:{ss}

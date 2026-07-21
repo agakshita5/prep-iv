@@ -10,7 +10,7 @@ export default function AuthButtons() {
     <div className="flex items-center gap-3">
       {!userId ? (
         <SignUpButton mode="modal" forceRedirectUrl="/onboarding">
-          <button className="rounded-lg bg-zinc-900 px-4 py-2 text-sm font-medium text-zinc-50 transition hover:bg-zinc-700">
+          <button className="rounded-full bg-coral px-4 py-2 text-sm font-medium text-surface transition hover:bg-coral-deep">
             Get started
           </button>
         </SignUpButton>
@@ -18,7 +18,7 @@ export default function AuthButtons() {
         <>
           <Link
             href="/onboarding"
-            className="rounded-lg bg-zinc-900 px-4 py-2 text-sm font-medium text-zinc-50 transition hover:bg-zinc-700"
+            className="rounded-full bg-coral px-4 py-2 text-sm font-medium text-surface transition hover:bg-coral-deep"
           >
             Enter PrepIV
           </Link>

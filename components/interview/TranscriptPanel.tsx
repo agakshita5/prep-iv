@@ -63,7 +63,7 @@ export default function TranscriptPanel({ onClose }: { onClose: () => void }) {
               <div
                 className={`max-w-[85%] rounded-2xl px-3 py-2 text-sm ${
                   g.isUser
-                    ? "bg-emerald-500/15 text-emerald-100"
+                    ? "bg-coral/20 text-zinc-100"
                     : "bg-white/5 text-zinc-200"
                 }`}
               >

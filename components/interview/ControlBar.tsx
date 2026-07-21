@@ -19,7 +19,7 @@ export default function ControlBar({ transcriptOpen, onToggleTranscript }: { tra
         aria-pressed={transcriptOpen}
         className={`rounded-full px-4 py-2 text-sm font-medium transition ${
           transcriptOpen
-            ? "bg-emerald-500/20 text-emerald-300"
+            ? "bg-coral/25 text-coral"
             : "bg-white/5 text-zinc-300 hover:bg-white/10"
         }`}
       >

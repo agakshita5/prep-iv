@@ -3,7 +3,7 @@
 import { Track } from "livekit-client"; // represent media track types
 import { useTracks, useLocalParticipant, useVoiceAssistant, useIsSpeaking, VideoTrack, BarVisualizer, isTrackReference } from "@livekit/components-react";
 
-const GLOW = "ring-2 ring-emerald-400 shadow-[0_0_45px_-8px_rgba(16,185,129,0.55)]";
+const GLOW = "ring-2 ring-coral shadow-[0_0_45px_-8px_rgba(251, 90, 60,0.6)]";
 const IDLE = "ring-1 ring-white/10";
 
 export default function Stage() {
@@ -39,13 +39,13 @@ export default function Stage() {
         </div>
 
         <div
-        className={`relative flex flex-[1] flex-col items-center justify-center gap-5 overflow-hidden rounded-3xl bg-gradient-to-b from-emerald-500/10 to-zinc-900 transition sm:max-w-sm ${
+        className={`relative flex flex-[1] flex-col items-center justify-center gap-5 overflow-hidden rounded-3xl bg-gradient-to-b from-coral/15 to-zinc-900 transition sm:max-w-sm ${
             aiSpeaking ? GLOW : IDLE
         }`}
         >
-        <div className="relative flex h-28 w-28 items-center justify-center rounded-full bg-emerald-500/10">
+        <div className="relative flex h-28 w-28 items-center justify-center rounded-full bg-coral/15">
             {aiSpeaking && (
-            <span className="absolute inset-0 animate-ping rounded-full bg-emerald-500/20" />
+            <span className="absolute inset-0 animate-ping rounded-full bg-coral/25" />
             )}
             <BarVisualizer
             state={state}

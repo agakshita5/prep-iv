@@ -16,7 +16,7 @@ export default function CopyLinkButton({ interviewId }: { interviewId: string })
   return (
     <button
       onClick={copy}
-      className="rounded-lg border border-emerald-300 bg-emerald-50 px-3 py-1.5 text-xs font-medium text-emerald-700 transition hover:bg-emerald-100"
+      className="rounded-full border border-coral/40 bg-coral/10 px-3 py-1.5 text-xs font-medium text-coral-deep transition hover:bg-coral/20"
     >
       {copied ? "Copied!" : "Copy invite link"}
     </button>
