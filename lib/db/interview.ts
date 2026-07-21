@@ -55,9 +55,27 @@ export async function claimInterview(interviewId: string, candidateId: string, r
     .from('interviews')
     .update({ candidate_id: candidateId, resume_text: resumeText, status: 'in_progress' })
     .eq('id', interviewId)
-    .is('candidate_id', null) 
+    .is('candidate_id', null)
     .select();
 
     if (error) throw new Error(error.message);
     return (data?.length ?? 0) > 0;
+}
+
+export async function createPracticeInterview(candidateId: string, roleTitle: string, jdText: string, resumeText: string): Promise<Interview> {
+    const { data, error } = await supabaseAdmin
+    .from('interviews')
+    .insert({
+        candidate_id: candidateId,
+        recruiter_id: null,
+        role_title: roleTitle,
+        jd_text: jdText,
+        resume_text: resumeText,
+        status: 'in_progress',
+    })
+    .select()
+    .single();
+
+    if (error) throw new Error(error.message);
+    return data;
 }
